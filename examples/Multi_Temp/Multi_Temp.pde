@@ -38,27 +38,29 @@ void setup() {
 
 
 void loop() {
-	temp[0] = temp0.read_temp(5);		// Read the temp 5 times and return the average value 
-	temp[1] = temp1.read_temp(5);		// Read the temp 5 times and return the average value 
-	temp[2] = temp2.read_temp(5);		// Read the temp 5 times and return the average value 
-	temp[3] = temp3.read_temp(5);		// Read the temp 5 times and return the average value 
+  temp[0] = temp0.read_temp(5);		// Read the temp 5 times and return the average value 
+  temp[1] = temp1.read_temp(5);		// Read the temp 5 times and return the average value 
+  temp[2] = temp2.read_temp(5);		// Read the temp 5 times and return the average value 
+  temp[3] = temp3.read_temp(5);		// Read the temp 5 times and return the average value 
   
-  	Serial.print("Temperature: \t");	// Print Header to Serial
-	for (int i=0; i<4; i++){			// Loop through each of the four temps
-		status = 0;						// Reset the status to 0 before we check for errors
-		if(temp[i] == -1) {				// If there is an error with the TC, temperature will be -1
-			Serial.print("ERROR!");		// Temperature is -1 and there is a thermocouple error
-			status++;					// Add to the status varible so status LED turns on
-		} else {
-			Serial.print( temp[i] );	// Print the temperature to Serial
-		}
-		Serial.print("\t");				// Print a tab to demininate the data
-	}
+    Serial.print("Temperature: \t");	// Print Header to Serial
+  for (int i=0; i<4; i++){	 // Loop through each of the four temps
+    status = 0;			 // Reset the status to 0 before we check for errors
+    if(temp[i] == -1) {		 // If there is an error with the TC, temperature will be -1
+      Serial.print("ERROR!");	 // Temperature is -1 and there is a thermocouple error
+        status++;		 // Add to the status varible so status LED turns on
+    } else {
+      Serial.print( temp[i] );   // Print the temperature to Serial
+    }
+    Serial.print("\t");	         // Print a tab to demininate the data
+  }
 	
-	if(status > 0) {					// Check if we should turn on the status LED
-		digitalWrite(LED1, HIGH);		// Turn on the status LED
-	} else {
-		digitalWrite(LED1, LOW);		// Turn off the status LED
-	}
-	Delay(1000);						// Wait one second before reading again
+  if(status > 0) {               // Check if we should turn on the status LED
+    digitalWrite(LED1, HIGH);    // Turn on the status LED
+  } else {
+    digitalWrite(LED1, LOW);     // Turn off the status LED
+  }
+  Serial.println(" ");
+
+  delay(1000);    // Wait one second before reading again
 }
