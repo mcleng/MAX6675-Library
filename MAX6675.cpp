@@ -57,25 +57,25 @@ float MAX6675::read_temp(int samples)
   
   /* 
      Keep in mind that the temp that was just read is on the digital scale
-     from 0ûC to 1023.75ûC at a resolution of 2^12.  We now need to convert
+     from 0ËšC to 1023.75ËšC at a resolution of 2^12.  We now need to convert
      to an actual readable temperature (this drove me nuts until I figured 
      this out!).  Now multiply by 0.25.  I tried to avoid float math but
-     it is tough to do a good conversion to ûF.  THe final value is converted 
+     it is tough to do a good conversion to ËšF.  THe final value is converted 
      to an int and returned at x10 power.
      
    */
    
-  value = value + _error;                            // Insert the calibration error value
+  value = value + _error;						// Insert the calibration error value
   
-  if(_units == 0) {                                  // Request temp in ûF
-    temp = ((value*0.25) * (9.0/5.0)) + 32.0;  // Convert value to ûF (ensure proper floats!)
-  } else if(_units == 1) {                           // Request temp in ûC
-    temp = (value*0.25);                       // Multiply the value by 25 to get temp in ûC
+  if(_units == 0) {								// Request temp in ËšF
+    temp = ((value*0.25) * (9.0/5.0)) + 32.0;	// Convert value to ËšF (ensure proper floats!)
+  } else if(_units == 1) {						// Request temp in ËšC
+    temp = (value*0.25);						// Multiply the value by 0.25 to get temp in ËšC
   }
   
-  /* Output 9999 if there is a TC error, otherwise return 'temp' */
+  /* Output -1 if there is a TC error, otherwise return 'temp' */
   if(error_tc != 0) {
-    return 999.9; 
+    return -1; 
   } else { 
     return temp; 
   }
