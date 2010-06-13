@@ -6,7 +6,7 @@
 #include <MAX6675.h>
 
 int LED1 = 9;             // Status LED Pin
-int CS = 10;              // CS pin on MAX6675
+int CS0 = 10;              // CS pin on MAX6675
 int SO = 12;              // SO pin of MAX6675
 int SCK = 13;             // SCK pin of MAX6675
 int units = 0;            // Units to readout temp (0 = ˚F, 1 = ˚C)
