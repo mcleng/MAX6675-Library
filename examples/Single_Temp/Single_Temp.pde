@@ -28,7 +28,8 @@ void setup() {
 }
 
 void loop() {
-  temperature = temp0.read_temp(5);         // Read the temp 5 times and return the average value to the var
+  
+  temperature = temp0.read_temp();          // Read the temp and return it
 
   if(temperature == -1) {                   // If there is an error with the TC, temperature will be -1
     Serial.println("Thermocouple Error!!"); // Temperature is -1 and there is a thermocouple error
@@ -39,5 +40,4 @@ void loop() {
     digitalWrite(LED1, LOW);                // Turn on the status LED
   }
   	
-  delay(1000);	// Wait one second before reading again
 }

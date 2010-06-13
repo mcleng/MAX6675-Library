@@ -21,7 +21,7 @@ MAX6675::MAX6675(int CS_pin, int SO_pin, int SCK_pin, int units, float error)
   _error = error;
 }
 
-float MAX6675::read_temp(int samples)
+float MAX6675::read_temp()
 {
   int value = 0;
   int error_tc = 0;

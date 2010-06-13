@@ -12,7 +12,7 @@ class MAX6675
 {
   public:
     MAX6675(int CS_pin, int SO_pin, int SCK_pin, int units, float error);
-    float read_temp(int samples);
+    float read_temp();
   private:
     int _CS_pin;
     int _SO_pin;

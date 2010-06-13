@@ -1,18 +1,20 @@
 /*
-  Multi_Temp.pde - Example using the MAX6675 Library.
+  Shield_Temp.pde - Example using the MAX6675 Library.
   Created by Ryan McLaughlin <ryanjmclaughlin@gmail.com>
+  
+  Uncomment the proper lines for more channels.
 */
 
 #include <MAX6675.h>
 
 int LED1 = 6;		// Status LED Pin
 int CS0 = 7;		// CS pin on MAX6675
-int CS1 = 8;		// CS pin on MAX6675
-int CS2 = 9;		// CS pin on MAX6675
-int CS3 = 10;		// CS pin on MAX6675
+//int CS1 = 8;		// CS pin on MAX6675
+//int CS2 = 9;		// CS pin on MAX6675
+//int CS3 = 10;		// CS pin on MAX6675
 int SO = 12;		// SO pin of MAX6675
 int SCK = 13;		// SCK pin of MAX6675
-int units = 0;		// Units to readout temp (0 = ËšF, 1 = ËšC)
+int units = 0;		// Units to readout temp (0 = ûF, 1 = ûC)
 float error1 = 0.0;	// Temperature compensation error
 float error2 = 0.0;	// Temperature compensation error
 float error3 = 0.0;	// Temperature compensation error
@@ -23,9 +25,9 @@ float temp[4];
 
 
 MAX6675 temp0(CS0,SO,SCK,units,error1);
-MAX6675 temp1(CS1,SO,SCK,units,error2);
-MAX6675 temp2(CS2,SO,SCK,units,error3);
-MAX6675 temp3(CS3,SO,SCK,units,error4);
+//MAX6675 temp1(CS1,SO,SCK,units,error2);
+//MAX6675 temp2(CS2,SO,SCK,units,error3);
+//MAX6675 temp3(CS3,SO,SCK,units,error4);
 
 
 // Setup Serial output and LED Pin  
@@ -39,9 +41,9 @@ void setup() {
 
 void loop() {
   temp[0] = temp0.read_temp();		// Read the temp and return the value 
-  temp[1] = temp1.read_temp();		// Read the temp and return the value 
-  temp[2] = temp2.read_temp();		// Read the temp and return the value 
-  temp[3] = temp3.read_temp();		// Read the temp and return the value 
+  //temp[1] = temp1.read_temp();		// Read the temp and return the value 
+  //temp[2] = temp2.read_temp();		// Read the temp and return the value 
+  //temp[3] = temp3.read_temp();		// Read the temp and return the value 
   
   Serial.print("Temperature: \t");	// Print Header to Serial
 
