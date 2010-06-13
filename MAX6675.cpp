@@ -27,33 +27,28 @@ float MAX6675::read_temp(int samples)
   int error_tc = 0;
   float temp = 0;
 	
-  for (int i=samples; i>0; i--){
-	
-	delay(220);
-	
-    digitalWrite(_CS_pin,LOW); // Enable device
+  digitalWrite(_CS_pin,LOW); // Enable device
 
-    /* Cycle the clock for dummy bit 15 */
-    digitalWrite(_SCK_pin,HIGH);
-    digitalWrite(_SCK_pin,LOW);
+  /* Cycle the clock for dummy bit 15 */
+  digitalWrite(_SCK_pin,HIGH);
+  digitalWrite(_SCK_pin,LOW);
 
-    /* Read bits 14-3 from MAX6675 for the Temp 
-       Loop for each bit reading the value and 
-       storing the final value in 'value' 
-    */
-    for (int j=11; j>=0; j--){
-      digitalWrite(_SCK_pin,HIGH);  // Set Clock to HIGH
-      value += digitalRead(_SO_pin) << j;  // Read data and add it to our variable
-      digitalWrite(_SCK_pin,LOW);  // Set Clock to LOW
-    }
-  
-    /* Read the TC Input input to check for TC Errors */
-    digitalWrite(_SCK_pin,HIGH); // Set Clock to HIGH
-    error_tc = digitalRead(_SO_pin); // Read data
+  /* Read bits 14-3 from MAX6675 for the Temp 
+     Loop for each bit reading the value and 
+     storing the final value in 'value' 
+  */
+  for (int j=11; j>=0; j--){
+    digitalWrite(_SCK_pin,HIGH);  // Set Clock to HIGH
+    value += digitalRead(_SO_pin) << j;  // Read data and add it to our variable
     digitalWrite(_SCK_pin,LOW);  // Set Clock to LOW
-  
-    digitalWrite(_CS_pin, HIGH); //Disable Device
   }
+  
+  /* Read the TC Input input to check for TC Errors */
+  digitalWrite(_SCK_pin,HIGH); // Set Clock to HIGH
+  error_tc = digitalRead(_SO_pin); // Read data
+  digitalWrite(_SCK_pin,LOW);  // Set Clock to LOW
+  
+  digitalWrite(_CS_pin, HIGH); //Disable Device
   
   value = value/samples;  // Divide the value by the number of samples to get the average
   
