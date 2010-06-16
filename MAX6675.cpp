@@ -50,8 +50,6 @@ float MAX6675::read_temp()
   
   digitalWrite(_CS_pin, HIGH); //Disable Device
   
-  value = value/samples;  // Divide the value by the number of samples to get the average
-  
   /* 
      Keep in mind that the temp that was just read is on the digital scale
      from 0˚C to 1023.75˚C at a resolution of 2^12.  We now need to convert
