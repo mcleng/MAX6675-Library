@@ -1,19 +1,30 @@
 MAX6675 Arduino Library
 =======================
 
-> Version 1.1
+> Version 2.0beta
 > 
 > Developed By:
 >> Ryan McLaughlin <ryan@ryanjmclaughlin.com>
+>> E.J.Blayer <ed@blayer.com>
+
+<a rel="license" href="http://creativecommons.org/licenses/by-sa/3.0/"><img alt="Creative Commons License" style="border-width:0" src="http://i.creativecommons.org/l/by-sa/3.0/88x31.png" /></a><br />This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/3.0/">Creative Commons Attribution-ShareAlike 3.0 Unported License</a>.
 
 Summary
 -------
 
 The primary use of the library is to easily interface with a MAX6675 chip via it's SPI interface.  Use the following code to initialize the library.
 
-	MAX6675 temp0(CS0,SO,SCK,units,error);
+	MAX6675 temp0(CS,SO,SCK,units);
 	
-Following this you can use the _read_temp()_ function to return the temperature.
+> CS is chip select pin of chip
+> SO is data out of the chip
+> SCK is the clock pin of the chip
+> units is one of the following:
+>> 0 = raw 0-4095 value
+>> 1 = temp in ˚C
+>> 2 = temp in ˚F
+	
+Following this you can use the _read_temp()_ function to return the temperature as a float.
 
-	temperature = temp0.read_temp(5);
+	temperature = temp0.read_temp();
 	

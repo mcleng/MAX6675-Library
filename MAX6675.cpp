@@ -1,12 +1,14 @@
 /*
   MAX6675.cpp - Library for reading temperature from a MAX6675.
-  Created by Ryan McLaughlin <ryanjmclaughlin@gmail.com>
+  
+  This work is licensed under a Creative Commons Attribution-ShareAlike 3.0 Unported License.
+  http://creativecommons.org/licenses/by-sa/3.0/
 */
 
 #include <WProgram.h>
 #include <MAX6675.h>
 
-MAX6675::MAX6675(int CS_pin, int SO_pin, int SCK_pin, int units, float error)
+MAX6675::MAX6675(int CS_pin, int SO_pin, int SCK_pin, int units)
 {
   pinMode(CS_pin, OUTPUT);
   pinMode(SO_pin, INPUT);
@@ -18,42 +20,36 @@ MAX6675::MAX6675(int CS_pin, int SO_pin, int SCK_pin, int units, float error)
   _SO_pin = SO_pin;
   _SCK_pin = SCK_pin;
   _units = units;
-  _error = error;
 }
 
-float MAX6675::read_temp(int samples)
+float MAX6675::read_temp()
 {
   int value = 0;
   int error_tc = 0;
   float temp = 0;
 	
-  for (int i=samples; i>0; i--){
+  digitalWrite(_CS_pin,LOW); // Enable device
 
-    digitalWrite(_CS_pin,LOW); // Enable device
+  /* Cycle the clock for dummy bit 15 */
+  digitalWrite(_SCK_pin,HIGH);
+  digitalWrite(_SCK_pin,LOW);
 
-    /* Cycle the clock for dummy bit 15 */
-    digitalWrite(_SCK_pin,HIGH);
-    digitalWrite(_SCK_pin,LOW);
-
-    /* Read bits 14-3 from MAX6675 for the Temp 
-       Loop for each bit reading the value and 
-       storing the final value in 'temp' 
-    */
-    for (int i=11; i>=0; i--){
-      digitalWrite(_SCK_pin,HIGH);  // Set Clock to HIGH
-      value += digitalRead(_SO_pin) << i;  // Read data and add it to our variable
-      digitalWrite(_SCK_pin,LOW);  // Set Clock to LOW
-    }
-  
-    /* Read the TC Input inp to check for TC Errors */
-    digitalWrite(_SCK_pin,HIGH); // Set Clock to HIGH
-    error_tc = digitalRead(_SO_pin); // Read data
+  /* Read bits 14-3 from MAX6675 for the Temp 
+     Loop for each bit reading the value and 
+     storing the final value in 'temp' 
+  */
+  for (int i=11; i>=0; i--){
+    digitalWrite(_SCK_pin,HIGH);  // Set Clock to HIGH
+    value += digitalRead(_SO_pin) << i;  // Read data and add it to our variable
     digitalWrite(_SCK_pin,LOW);  // Set Clock to LOW
-  
-    digitalWrite(_CS_pin, HIGH); //Disable Device
   }
-  
-  value = value/samples;  // Divide the value by the number of samples to get the average
+
+  /* Read the TC Input inp to check for TC Errors */
+  digitalWrite(_SCK_pin,HIGH); // Set Clock to HIGH
+  error_tc = digitalRead(_SO_pin); // Read data
+  digitalWrite(_SCK_pin,LOW);  // Set Clock to LOW
+
+  digitalWrite(_CS_pin, HIGH); //Disable Device
   
   /* 
      Keep in mind that the temp that was just read is on the digital scale
@@ -63,19 +59,19 @@ float MAX6675::read_temp(int samples)
      it is tough to do a good conversion to ˚F.  THe final value is converted 
      to an int and returned at x10 power.
      
-   */
-   
-  value = value + _error;						// Insert the calibration error value
+  */
   
-  if(_units == 0) {								// Request temp in ˚F
+  if(_units == 2) {								// Request temp in ˚F
     temp = ((value*0.25) * (9.0/5.0)) + 32.0;	// Convert value to ˚F (ensure proper floats!)
   } else if(_units == 1) {						// Request temp in ˚C
     temp = (value*0.25);						// Multiply the value by 0.25 to get temp in ˚C
+  } else {
+	temp = value;
   }
   
-  /* Output -1 if there is a TC error, otherwise return 'temp' */
+  /* Output negative of CS_pin if there is a TC error, otherwise return 'temp' */
   if(error_tc != 0) {
-    return -1; 
+    return -_CS_pin; 
   } else { 
     return temp; 
   }
