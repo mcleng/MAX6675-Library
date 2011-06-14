@@ -26,7 +26,7 @@ float MAX6675::read_temp()
 {
 	int value = 0;
 	int error_tc = 0;
-	float temp = 0;
+	float temp = 0.0;
 	
     /* 
 	  Initiate a temperature conversion. According to MAX's tech notes FAQ's 
@@ -36,7 +36,7 @@ float MAX6675::read_temp()
 	  the chip.
 	*/
     digitalWrite(_CS_pin,LOW);				 
-    delay(1);
+    delay(2);
     digitalWrite(_CS_pin,HIGH);
     delay(220);
 
