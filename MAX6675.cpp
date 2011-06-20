@@ -40,6 +40,8 @@ float MAX6675::read_temp()
     digitalWrite(_CS_pin,HIGH);
     delay(220);
 
+	/* Read the chip and return the raw temperature value */
+	
 	/*
 	  Bring CS pin low to allow us to read the data from
 	  the conversion process
@@ -77,7 +79,7 @@ float MAX6675::read_temp()
 	}
 
 	// Disable Device
-	digitalWrite(_CS_pin, HIGH); 
+	digitalWrite(_CS_pin, HIGH);
   
 	/* 
 	  Keep in mind that the temp that was just read is on the digital scale
@@ -92,7 +94,7 @@ float MAX6675::read_temp()
 	  0 = raw chip value 0-4095
 	*/
 	if(_units == 2) {
-		temp = ((value*0.25) * (9.0/5.0)) + 32.0;
+		temp = (value*0.25) * 9.0/5.0 + 32.0;
 	} else if(_units == 1) {
 		temp = (value*0.25);
 	} else {

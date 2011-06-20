@@ -20,6 +20,7 @@ class MAX6675
     int _SO_pin;
     int _SCK_pin;
     int _units;
+	int chip_read( int CS_pin, int &error_tc ); 
 };
 
 #endif

@@ -15,7 +15,7 @@ This work is licensed under a <a rel="license" href="http://creativecommons.org/
 Summary
 -------
 
-The primary use of the library is to easily interface with a MAX6675 chip via it's SPI interface.  Use the following code to initialize the library.
+The primary use of the library is to easily interface with a MAX6675 chip via it's SPI interface.  Use the following code to initialize the library.  V2 also greatly improves performance and timing of the chip for more accurate reads.  Thanks Ed!
 
 	MAX6675 temp0(CS,SO,SCK,units);
 

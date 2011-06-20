@@ -9,7 +9,7 @@
 #include <MAX6675.h>
 
 int LED1 = 9;             // Status LED Pin
-int CS0 = 10;             // CS pin on MAX6675
+int CS = 10;             // CS pin on MAX6675
 int SO = 12;              // SO pin of MAX6675
 int SCK = 13;             // SCK pin of MAX6675
 int units = 2;            // Units to readout temp (0 = raw, 1 = ˚C, 2 = ˚F)
@@ -17,7 +17,7 @@ float temperature = 0.0;  // Temperature output variable
 
 
 // Initialize the MAX6675 Library for our chip
-MAX6675 temp0(CS0,SO,SCK,units);
+MAX6675 temp(CS,SO,SCK,units);
 
 
 // Setup Serial output and LED Pin  
@@ -29,7 +29,7 @@ void setup() {
 
 void loop() {
 	// Read the temp from the MAX6675
-	temperature = temp0.read_temp();
+	temperature = temp.read_temp();
 
 	if(temperature < 0) {                   
 		// If there is an error with the TC, temperature will be < 0
