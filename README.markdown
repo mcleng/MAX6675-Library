@@ -1,11 +1,6 @@
 MAX6675 Arduino Library
 =======================
-Version: **2.0beta**
- 
-Developed By:
-
-*	Ryan McLaughlin <ryan@ryanjmclaughlin.com>
-*	E.J.Blayer <ed@blayer.com>
+Version: **2.0.1**
 
 This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/3.0/">Creative Commons Attribution-ShareAlike 3.0 Unported License</a>.
 
