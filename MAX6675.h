@@ -8,7 +8,11 @@
 #ifndef MAX6675_h
 #define MAX6675_h
 
+#if defined(ARDUINO) && ARDUINO >= 100
+#include "Arduino.h"
+#else
 #include "WProgram.h"
+#endif
 
 class MAX6675
 {

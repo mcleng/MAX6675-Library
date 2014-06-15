@@ -5,7 +5,6 @@
   http://creativecommons.org/licenses/by-sa/3.0/
 */
 
-#include <WProgram.h>
 #include <MAX6675.h>
 
 MAX6675::MAX6675(int CS_pin, int SO_pin, int SCK_pin, int units)
