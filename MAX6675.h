@@ -1,6 +1,6 @@
 /*
   MAX6675.h - Library for reading temperature from a MAX6675.
-  
+
   This work is licensed under a Creative Commons Attribution-ShareAlike 3.0 Unported License.
   http://creativecommons.org/licenses/by-sa/3.0/
 */
@@ -17,14 +17,14 @@
 class MAX6675
 {
   public:
-    MAX6675(int CS_pin, int SO_pin, int SCK_pin, int units);
+    MAX6675(uint8_t CS_pin, uint8_t SO_pin, uint8_t SCK_pin, uint8_t units);
     float read_temp();
   private:
-    int _CS_pin;
-    int _SO_pin;
-    int _SCK_pin;
-    int _units;
-	int chip_read( int CS_pin, int &error_tc ); 
+    uint8_t _CS_pin;
+    uint8_t _SO_pin;
+    uint8_t _SCK_pin;
+    uint8_t _units;
+    uint8_t chip_read(uint8_t CS_pin, uint8_t &error_tc);
 };
 
 #endif
