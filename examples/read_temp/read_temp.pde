@@ -20,7 +20,7 @@ float temperature = 0.0;  // Temperature output variable
 MAX6675 temp(CS,SO,SCK,units);
 
 
-// Setup Serial output and LED Pin  
+// Setup Serial output and LED Pin
 // MAX6675 Library already sets pin modes for MAX6675 chip!
 void setup() {
   Serial.begin(9600);
@@ -29,19 +29,19 @@ void setup() {
 
 void loop() {
 	// Read the temp from the MAX6675
-	temperature = temp.read_temp();
+	temperature = temp0.read_temp();
 
-	if(temperature < 0) {                   
+	if(temperature < 0) {
 		// If there is an error with the TC, temperature will be < 0
 		Serial.print("Thermocouple Error on CS");
-		Serial.println( temperature ); 
+		Serial.println( temperature );
 		digitalWrite(LED1, HIGH);
 	} else {
 		Serial.print("Current Temperature: ");
-		Serial.println( temperature ); 
+		Serial.println( temperature );
 		digitalWrite(LED1, LOW);
 	}
- 
+
 	// Wait one second before reading again
-	delay(1000);	
+	delay(1000);
 }
